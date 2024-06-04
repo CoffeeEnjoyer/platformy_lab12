@@ -9,6 +9,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        Console.WriteLine("Enter name:");
         String name = Console.ReadLine();
         Client client = new Client("127.0.0.1", 420, name);
         
@@ -53,6 +54,7 @@ class Client
     }
 }
 
+[Serializable]
 class Message
 {
     public String name;
