@@ -3,27 +3,43 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Claims;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Client client = new Client("127.0.0.1", 420);
+        String name = Console.ReadLine();
+        Client client = new Client("127.0.0.1", 420, name);
+        
+        while (true)
+        {
+            String message = Console.ReadLine();
+            client.SendMessage(message);
+        }
 
-        client.SendData("Hello, Server!");
     }
 }
 class Client
 {
+    private String name;
+    private static int id = 0;
     TcpClient client;
-    public Client(string serverIP, int port)
+    public Client(string serverIP, int port, String n)
     {
         client = new TcpClient(serverIP, port);
+        name = n;
     }
 
-    public void SendData(object data)
+    public void SendMessage(String message)
     {
         NetworkStream stream = client.GetStream();
+        
+        Message data = new Message();
+        data.name = name;
+        data.message = message;
+        data.id = id;
+        data.time = DateTime.Now;
 
         BinaryFormatter formatter = new BinaryFormatter();
         using (var ms = new MemoryStream())
@@ -31,15 +47,16 @@ class Client
             formatter.Serialize(ms, data);
             byte[] bytes = ms.ToArray();
             stream.Write(bytes, 0, bytes.Length);
-
-            // Receiving data
-            byte[] resp = new byte[1024];
-            int length = stream.Read(resp, 0, resp.Length);
-            using (var msResp = new MemoryStream(resp, 0, length))
-            {
-                var receivedData = formatter.Deserialize(msResp);
-                // Process received data here
-            }
         }
+
+        id++;
     }
+}
+
+class Message
+{
+    public String name;
+    public String message;
+    public int id;
+    public DateTime time;
 }
