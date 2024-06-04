@@ -8,7 +8,7 @@ using System.Threading;
 
 class Program
 {
-    static void Main(string[] args)
+    public static void run(string[] args)
     {
         Server server = new Server("127.0.0.1", 420);
     }
@@ -63,6 +63,7 @@ class Server
             Console.WriteLine(((Message)data).name);
             Console.WriteLine(((Message)data).id);
             Console.WriteLine(((Message)data).message);
+            Console.WriteLine(((Message)data).id + ((Message)data).time.Year); 
         }
 
     }

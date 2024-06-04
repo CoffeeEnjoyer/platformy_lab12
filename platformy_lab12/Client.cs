@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 class RunClient
 {
-    static void Main(string[] args)
+    public static void run(string[] args)
     {
         Console.WriteLine("Enter name:");
         String name = Console.ReadLine();
