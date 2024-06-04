@@ -58,8 +58,20 @@ class Server
             byte[] msg = new byte[1024];
             ms.Position = 0;
             length = ms.Read(msg, 0, msg.Length);
-            stream.Write(msg, 0, length);
+            Console.WriteLine(((Message)data).time.ToString());
+            Console.WriteLine(((Message)data).name);
+            Console.WriteLine(((Message)data).id);
+            Console.WriteLine(((Message)data).message);
         }
 
     }
+}
+
+[Serializable]
+class Message
+{
+    public String name;
+    public String message;
+    public int id;
+    public DateTime time;
 }
