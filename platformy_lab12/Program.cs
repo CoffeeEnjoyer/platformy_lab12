@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -30,9 +29,8 @@ class Server
         {
             while (true)
             {
-                Console.WriteLine("Waiting for a connection...");
                 TcpClient client = server.AcceptTcpClient();
-                Console.WriteLine("Connected!");
+                Console.WriteLine("Client connected");
 
                 Thread t = new Thread(new ParameterizedThreadStart(HandleDeivce));
                 t.Start(client);
@@ -49,9 +47,7 @@ class Server
     {
         TcpClient client = (TcpClient)obj;
         var stream = client.GetStream();
-        Console.WriteLine("Processing client data...");
 
-        // Receiving data
         byte[] bytes = new byte[1024];
         int length = stream.Read(bytes, 0, bytes.Length);
         BinaryFormatter formatter = new BinaryFormatter();
@@ -59,15 +55,11 @@ class Server
         {
             var data = formatter.Deserialize(ms);
 
-            // Modify data here
-
-            // Sending data back
             byte[] msg = new byte[1024];
             ms.Position = 0;
             length = ms.Read(msg, 0, msg.Length);
             stream.Write(msg, 0, length);
         }
 
-        client.Close();
     }
 }
