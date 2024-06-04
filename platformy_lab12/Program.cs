@@ -1,4 +1,5 @@
-﻿using System;
+﻿namespace platformy_lab12;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -65,13 +66,4 @@ class Server
         }
 
     }
-}
-
-[Serializable]
-class Message
-{
-    public String name;
-    public String message;
-    public int id;
-    public DateTime time;
 }

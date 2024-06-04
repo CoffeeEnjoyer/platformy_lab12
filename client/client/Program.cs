@@ -1,4 +1,5 @@
 ﻿
+namespace platformy_lab12;
 using System;
 using System.IO;
 using System.Net.Sockets;
@@ -55,7 +56,7 @@ class Client
 }
 
 [Serializable]
-class Message
+public class Message
 {
     public String name;
     public String message;
