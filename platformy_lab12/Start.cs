@@ -1,10 +1,10 @@
 namespace platformy_lab12;
 
-public class Start
+public class Program
 {
     public static void Main(string[] args)
     {
-        Program.run(args);
+        RunServer.run(args);
         RunClient.run(args);
         RunClient.run(args);
     }
